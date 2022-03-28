@@ -1,0 +1,25 @@
+.calendar_item_wrapper h4 {
+  font-size: 12pt;
+  font-weight: 400;
+}
+
+.calendar_item_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.remove_tag{
+  opacity: 0;
+  cursor: pointer;
+  transition: .2s;
+}
+
+#remove_task {
+  font-size: 20pt;
+  color: var(--red);
+  cursor: pointer;
+}
+
+.calendar_item_wrapper:hover .remove_tag {
+  opacity: 1;
+}

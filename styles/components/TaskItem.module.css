@@ -1,0 +1,77 @@
+.task_item_wrapper h1{
+  font-size: 15pt;
+  color: var(--yellow);
+  margin-top: 5px;
+}
+
+#task_check {
+  font-size: 18pt;
+  cursor: pointer;
+  margin-right: 10px;
+  color: var(--orange);
+  stroke-width: 4px;
+
+  transition: .2s;
+}
+
+.task_item_wrapper {
+  font-size: 12pt;
+}
+
+.task_item_wrapper ul {
+  list-style: none;
+}
+
+.tag_container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: -20px;
+}
+
+.tag_container p{
+  font-size: 20pt;
+  line-height: 20pt;
+  margin-top: 0px;
+  margin-right: 30px;
+  color: var(--yellow);
+}
+
+.priority_tag {
+  background-color: var(--red);
+  border-radius: 8px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15pt;
+  margin: 0 10px;
+}
+
+.status_tag {
+  background-color: var(--red);
+  border-radius: 8px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15pt;
+}
+
+.remove_tag{
+  opacity: 0;
+  
+  transition: .2s;
+}
+
+#remove_task {
+  font-size: 25pt;
+  color: var(--red);
+  cursor: pointer;
+}
+
+.task_item_wrapper:hover .remove_tag {
+  opacity: 1;
+}
+
