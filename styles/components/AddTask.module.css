@@ -1,0 +1,43 @@
+.addtask_item_wrapper input{
+  background: transparent;
+  border:none;
+  margin-bottom: 10px;
+  color: var(--yellow);
+  font-weight: bold;
+  font-size: 12pt;
+}
+
+.addtask_item_wrapper input[id="2"] {
+  color: var(--black);
+}
+
+
+.addtask_item_wrapper input[id="1"]::placeholder {
+  color: var(--yellow);
+  font-size: 15pt;
+  font-weight: bold;
+  font-family: Josefin Sans;
+}
+
+.addtask_item_wrapper input::placeholder {
+  color: var(--black);
+  font-size: 12pt;
+  font-family: Josefin Sans;
+}
+
+.addtask_item_wrapper select{
+  color: var(--yellow);
+  background-color: transparent;
+  border:none;
+  font-size: 12pt;
+  font-weight: bold;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.addtask_item_wrapper select option{
+  height: 30px;
+}
+
+

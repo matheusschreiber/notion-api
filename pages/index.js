@@ -1,13 +1,35 @@
+import {useState} from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 import Header from '../components/Header'
 import CalendarItem from '../components/CalendarItem'
 import TaskItem from '../components/TaskItem'
+import AddTask from '../components/AddTask'
 
-import { FiCalendar, FiClipboard } from 'react-icons/fi'
+import { FiCalendar, FiClipboard, FiX, FiCheck } from 'react-icons/fi'
 
 export default function Home() {
+  const [ addingTask, setAddingTask ] = useState();
+  const [ newTaskData, setNewTaskData ] = useState();
+  const [ update, setUpdate ] = useState([]);
+
+  function handleSubmit(save){
+    let array = update.slice()
+    array.push([])
+    setUpdate(array)
+    setAddingTask(false);
+    
+    if (!save) return   
+    
+    PROBLEMA DE ASSINCRONISMO AQUI!!!!!!
+  }
+
+  function getData(data){
+    setNewTaskData(data);
+  }
+
+
   return (
     <div>
       <Head>
@@ -32,8 +54,20 @@ export default function Home() {
 
 
         <aside className={styles.tasks_container}>
-          <div className={styles.tasks_icon_wrapper}><FiClipboard className={styles.icon} id={styles.tasks_icon}/></div>
+          <div className={styles.tasks_icon_wrapper}
+            onClick={()=>setAddingTask(true)}>
+            
+            <FiClipboard className={styles.icon} id={styles.tasks_icon} 
+              style={!addingTask?{display:'flex', fontSize:'20pt'}:{display:'none'}}/>
+
+            <div style={addingTask?{display:'flex', fontSize:'20pt'}:{display:'none'}}>
+              <div onClick={()=>handleSubmit(false)}><FiX color={'var(--red)'}/></div>
+              <div onClick={()=>handleSubmit(true)}><FiCheck color={'var(--green)'}/></div>
+            </div>
+          </div>
+
           <div className={styles.tasks_inside_container}>
+            <AddTask shown={addingTask} getData={getData} update={update}/>
             <TaskItem 
               date={"28/03"}
               title={"FRONTEND INTROCOMP"} 
