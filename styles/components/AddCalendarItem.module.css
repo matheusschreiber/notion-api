@@ -1,0 +1,29 @@
+.main_container_add_calendar {
+  display: flex;
+  align-items: center;
+}
+
+.main_container_add_calendar input, .main_container_add_calendar select {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid var(--yellow);
+  height: 30px;
+  color: var(--black)
+}
+
+.main_container_add_calendar select option{
+  background-color: var(--yellow);
+  color: var(--light_gray);
+}
+
+.main_container_add_calendar input[type="date"]{
+  width: 120px;
+  font-size: 8pt;
+  margin: 10px 5px;
+}
+
+.main_container_add_calendar input[type="text"]{
+  font-size: 8pt;
+  margin: 10px 5px;
+}
+

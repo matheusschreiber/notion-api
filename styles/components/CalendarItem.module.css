@@ -6,6 +6,7 @@
 .calendar_item_wrapper {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .remove_tag{
@@ -22,4 +23,32 @@
 
 .calendar_item_wrapper:hover .remove_tag {
   opacity: 1;
+}
+
+.date_time_event {
+  min-height: 30px;
+  width: 55px;
+  margin: 10px 0px;
+  border-radius: 8px;
+  line-height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#date {
+  color: var(--yellow);
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+#time {
+  color: var(--light_gray);
+  background-color: var(--orange);
+}
+
+#event{
+  width: 200px;
+  padding-left: 5px;
+  justify-content: left;
 }
