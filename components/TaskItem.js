@@ -38,8 +38,8 @@ export default function TaskItem({id, date, title, subtasks, priority, status, d
       id,
       title,
       subtasks,
-      priority:priorityState=="🔥"?"high":priorityState=="⛅"?"medium":"low",
-      status:statusState=="⌛"?"not started":statusState=="✍🏻"?"started":"finished",
+      priority:priorityState=="🔥"?"High":priorityState=="⛅"?"Medium":"Low",
+      status:statusState=="⌛"?"Not Started":statusState=="✍🏻"?"In Progress":"Completed",
       done:isDone,
       date
     }
@@ -108,9 +108,9 @@ export default function TaskItem({id, date, title, subtasks, priority, status, d
 
       <ul style={isDone?{color:'var(--dark_gray)'}:{}}>
         {
-          subtasks.map((i)=>(
-            <li key={i}>{i}</li>
-          ))
+          // subtasks.map((i)=>(
+          //   <li key={id + i}>{i}</li>
+          // ))
         }
       </ul>
     </div>

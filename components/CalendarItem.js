@@ -13,6 +13,10 @@ export default function CalendarItem({id, date, text, update}){
     update()
   }
 
+  useEffect(()=>{
+    console.log(text)
+  },[])
+
   return (
     <div className={styles.calendar_item_wrapper}>
       <div className={styles.remove_tag} onClick={deleteHandler}><FiX id={styles.remove_task}/></div>

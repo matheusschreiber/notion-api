@@ -29,7 +29,7 @@ export default function AddCalendarItem({shown, update}){
       setDate("")
       setTitle("")
       setTime("")
-    }
+    } else if (action==1) return
 
     update()
   }

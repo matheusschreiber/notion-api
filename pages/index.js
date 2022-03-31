@@ -32,13 +32,14 @@ export default function Home() {
       await api.post('/api/updateTask', task)
     }
     const { data } = await api.get('/api/getTasks')
-    
+
     //The notion api has a sort algorithm, see that later
     data.sort((a,b)=>{
       if (a.done && !b.done) return 1;
       else if (!a.done && b.done) return -1;
       else return 0
     })
+    console.log(data)
 
     setTasks(data)
     setLoadingTasks(false)
@@ -64,7 +65,7 @@ export default function Home() {
     setMonths(array)
   }
 
-  function integerToMoth(i){
+  function integerToMonth(i){
     switch(i){
       case 0: return "JANEIRO";
       case 1: return "FEVEREIRO";
@@ -81,10 +82,14 @@ export default function Home() {
     }
   }
   
-  useEffect(()=>{
+  async function fetchData(){
     updateMonth()
     getTasks()
     getCalendar()
+  }
+  
+  useEffect(()=>{
+    fetchData()
   },[])
 
   return (
@@ -119,22 +124,23 @@ export default function Home() {
           <AddCalendarItem shown={addingCalendar} update={getCalendar} />
           <div className={styles.month_wrapper}>
             {
-              months.map((i)=>(
+              months.map((i,indexI)=>(
                 <div key={i+'div'}>
-                  <h1 key={i}>{integerToMoth(i)}</h1>
+                  <h1 key={i}>{integerToMonth(i)}</h1>
                   {
-                    calendar.map((c)=>(
-                      parseInt(c.date.slice(5,7))==i+1
+                    calendar!=[]?
+                    calendar.map((c, indexC)=>(
+                      (parseInt(c.date.slice(5,7))==i+1)
                       ?
                       <CalendarItem 
-                        key={c.id}
+                        key={`${indexI}_${indexC}`}
                         id={c.id}
                         date={c.date} 
                         text={c.title}
                         update={getCalendar}/>
                       :
-                      <></>
-                    ))
+                      ""
+                    )) : ""
                   }
                 </div>
               ))
@@ -168,8 +174,8 @@ export default function Home() {
                   id={t.id}
                   date={t.date}
                   title={t.title} 
-                  priority={t.priority=="high"?"🔥":t.priority=="medium"?"⛅":"🧊"}
-                  status={t.status=="not started"?"⌛":t.status=="started"?"✍🏻":"✅"}
+                  priority={t.priority=="High"?"🔥":t.priority=="Medium"?"⛅":"🧊"}
+                  status={t.status=="Not Started"?"⌛":t.status=="In Progress"?"✍🏻":"✅"}
                   subtasks={t.subtasks}
                   done={t.done}
                   update={getTasks}/>

@@ -53,7 +53,7 @@ export default function AddTask({shown, update}){
       setDate("")
       setTitle("")
       setSubtasks(["Insira uma subtarefa"])
-    }
+    } else if (action==1) return
 
     update()
   }
@@ -81,9 +81,9 @@ export default function AddTask({shown, update}){
           value={priority}>
 
           <option hidden>PRIORIDADE</option>
-          <option value={"high"}>🔥 alta</option>
-          <option value={"medium"}>⛅ mediana</option>
-          <option value={"low"}>🧊 baixa</option>
+          <option value={"High"}>🔥 alta</option>
+          <option value={"Medium"}>⛅ mediana</option>
+          <option value={"Low"}>🧊 baixa</option>
         </select>
         
         <select
@@ -91,9 +91,9 @@ export default function AddTask({shown, update}){
           onChange={(e)=>setStatus(e.target.value)}
           value={status}>
           <option hidden>STATUS</option>
-          <option value={"not started"}>⌛ não iniciada</option>
-          <option value={"started"}>✍🏻 iniciada</option>
-          <option value={"finished"}>✅ terminada</option>
+          <option value={"Not Started"}>⌛ não iniciada</option>
+          <option value={"In Progress"}>✍🏻 iniciada</option>
+          <option value={"Finished"}>✅ terminada</option>
         </select>
       </div>
 

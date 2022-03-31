@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       },
       status:{
         select:{
-          name: done?"finished":status
+          name: done?"Completed":status
         }
       },
       date:{
