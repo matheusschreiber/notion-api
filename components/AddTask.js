@@ -46,8 +46,13 @@ export default function AddTask({shown, update}){
       setSubtasks(["Insira uma subtarefa"])
     } else if (action===3) {
       const data = {priority, status, date, title, subtasks:subtasks.slice(0,subtasks.length-1), done:false}
-      const response = await api.post('/api/addItem', data)
-      console.log(response.data)
+      await api.post('/api/addTask', data)
+      
+      setPriority("")
+      setStatus("")
+      setDate("")
+      setTitle("")
+      setSubtasks(["Insira uma subtarefa"])
     }
 
     update()

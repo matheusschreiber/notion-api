@@ -13,21 +13,78 @@ import "react-activity/dist/library.css";
 import api from  '../services/api'
 
 import { FiCalendar, FiClipboard, FiX, FiCheck, FiPlus } from 'react-icons/fi'
+import AddCalendarItem from '../components/AddCalendarItem'
 
 export default function Home() {
   const [ tasks, setTasks ] = useState([]);
-  const [ addingTask, setAddingTask ] = useState(1);
-  const [ loading, setLoading ] = useState(false);
+  const [ calendar, setCalendar ] = useState([]);
+  const [ months, setMonths ] = useState(["carregando primeiro mês...","carregando segundo mês...","carregando terceiro mês..."]);
 
-  async function getItems(){
-    setLoading(true)
-    const { data } = await api.get('/api/getItems')
+  const [ addingTask, setAddingTask ] = useState(1);
+  const [ addingCalendar, setAddingCalendar ] = useState(1);
+
+  const [ loadingTasks, setLoadingTasks ] = useState(false);
+  const [ loadingCalendar, setLoadingCalendar ] = useState(false);
+
+  async function getTasks(task=undefined){
+    setLoadingTasks(true)
+    if (task){
+      await api.post('/api/updateTask', task)
+    }
+    const { data } = await api.get('/api/getTasks')
+    
+    //The notion api has a sort algorithm, see that later
+    data.sort((a,b)=>{
+      if (a.done && !b.done) return 1;
+      else if (!a.done && b.done) return -1;
+      else return 0
+    })
+
     setTasks(data)
-    setLoading(false)
+    setLoadingTasks(false)
   }
 
+  async function getCalendar(){
+    setLoadingCalendar(true)
+
+    const {data} = await api.get('/api/getCalendar')
+    setCalendar(data) 
+    setLoadingCalendar(false)
+  }
+
+  function updateMonth(){
+    const date = new Date
+    let j = date.getMonth()
+    let array=[]
+    for(let i=0;i<3;i++){
+      array.push(j)
+      j++;
+      if (j==12) j=0
+    }
+    setMonths(array)
+  }
+
+  function integerToMoth(i){
+    switch(i){
+      case 0: return "JANEIRO";
+      case 1: return "FEVEREIRO";
+      case 2: return "MARÇO";
+      case 3: return "ABRIL";
+      case 4: return "MAIO";
+      case 5: return "JUNHO";
+      case 6: return "JULHO";
+      case 7: return "AGOSTO";
+      case 8: return "SETEMBRO";
+      case 9: return "OUTUBRO";
+      case 10: return "NOVEMBRO";
+      case 11: return "DEZEMBRO";
+    }
+  }
+  
   useEffect(()=>{
-    getItems()
+    updateMonth()
+    getTasks()
+    getCalendar()
   },[])
 
   return (
@@ -42,16 +99,46 @@ export default function Home() {
 
       <main className={styles.main}>
 
-        <aside className={styles.calendar_container}>
+        <aside className={styles.calendar_container} style={!addingCalendar?{borderColor:'var(--yellow)'}:{}}>
           <div className={styles.calendar_icon_wrapper}>
-            <FiCalendar className={styles.icon} id={styles.calendar_icon}/>
-            <FiPlus className={styles.icon} id={styles.add_calendar_icon} />
-          </div>
+            <div onClick={()=>setAddingCalendar(0)}>
+              <FiCalendar className={styles.icon}
+                id={styles.calendar_icon} 
+                style={addingCalendar?{}:{display:'none'}}/>
+              <FiPlus className={styles.icon}
+                id={styles.add_calendar_icon}
+                style={addingCalendar?{}:{display:'none'}}/>
+            </div>
+            <div style={!addingCalendar?{display:'flex', fontSize:'20pt'}:{display:'none'}}>
+              <div onClick={()=>setAddingCalendar(2)}><FiX color={'var(--red)'} strokeWidth={4}/></div>
+              <div onClick={()=>{setAddingCalendar(3); getCalendar()}}><FiCheck color={'var(--green)'} strokeWidth={4}/></div>
+            </div>
+          </div>          
           
+          <Dots className={styles.loading_icon} style={loadingCalendar?{}:{display:'none'}}/>
+          <AddCalendarItem shown={addingCalendar} update={getCalendar} />
           <div className={styles.month_wrapper}>
-            <h1>MARÇO</h1>
-            <CalendarItem date={"28/03"} text={"Evento"}/>
-            <CalendarItem date={"28/03"} text={"Outro evento"}/>
+            {
+              months.map((i)=>(
+                <div key={i+'div'}>
+                  <h1 key={i}>{integerToMoth(i)}</h1>
+                  {
+                    calendar.map((c)=>(
+                      parseInt(c.date.slice(5,7))==i+1
+                      ?
+                      <CalendarItem 
+                        key={c.id}
+                        id={c.id}
+                        date={c.date} 
+                        text={c.title}
+                        update={getCalendar}/>
+                      :
+                      <></>
+                    ))
+                  }
+                </div>
+              ))
+            }
           </div>
         </aside>
 
@@ -67,13 +154,13 @@ export default function Home() {
             </div>
             <div style={!addingTask?{display:'flex', fontSize:'20pt'}:{display:'none'}}>
               <div onClick={()=>setAddingTask(2)}><FiX color={'var(--red)'} strokeWidth={4}/></div>
-              <div onClick={()=>setAddingTask(3)}><FiCheck color={'var(--green)'} strokeWidth={4}/></div>
+              <div onClick={()=>{setAddingTask(3); getTasks()}}><FiCheck color={'var(--green)'} strokeWidth={4}/></div>
             </div>
           </div>
 
-          <Dots className={styles.loading_icon} style={loading?{}:{display:'none'}}/>
+          <Dots className={styles.loading_icon} style={loadingTasks?{}:{display:'none'}}/>
           <div className={styles.tasks_inside_container}>
-            <AddTask shown={addingTask} update={getItems}/>
+            <AddTask shown={addingTask} update={getTasks}/>
             {
               tasks.map((t)=>(
                 <TaskItem 
@@ -84,8 +171,8 @@ export default function Home() {
                   priority={t.priority=="high"?"🔥":t.priority=="medium"?"⛅":"🧊"}
                   status={t.status=="not started"?"⌛":t.status=="started"?"✍🏻":"✅"}
                   subtasks={t.subtasks}
-                  done={false}
-                  update={getItems}/>
+                  done={t.done}
+                  update={getTasks}/>
               ))
             }
           </div>

@@ -46,6 +46,15 @@
   align-items: center;
   font-size: 15pt;
   margin: 0 10px;
+  cursor:pointer;
+  
+  /* this is to make the text unselectable */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .status_tag {
@@ -57,6 +66,34 @@
   justify-content: center;
   align-items: center;
   font-size: 15pt;
+  cursor:pointer;
+
+  /* this is to make the text unselectable */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.change_warning{
+  border-radius: 8px;
+  height: 30px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10pt;
+  cursor:pointer;
+
+  /* this is to make the text unselectable */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .remove_tag{
