@@ -1,6 +1,5 @@
 const { Client } = require('@notionhq/client');
 
-
 export default async function handler(req, res) {
   const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_INTEGRATION_TOKEN })
   const { title, priority, status, date, done, subtasks } = req.body
@@ -26,7 +25,7 @@ export default async function handler(req, res) {
 
   const data = await notion.pages.create({
     parent:{
-      database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID
+      database_id: process.env.NEXT_PUBLIC_NOTION_TASKS_DATABASE_ID
     },
     properties:{
       Name:{

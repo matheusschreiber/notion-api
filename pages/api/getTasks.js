@@ -1,11 +1,16 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const { Client } = require('@notionhq/client');
 
-
 export default async function handler(req, res) {
   const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_INTEGRATION_TOKEN })
   const pages = await notion.databases.query({
-    database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID
+    database_id: process.env.NEXT_PUBLIC_NOTION_TASKS_DATABASE_ID,
+    sorts:[
+      {
+        property: "date",
+        direction: "descending"
+      },
+    ]
   })
 
   const data = pages.results
@@ -28,7 +33,8 @@ export default async function handler(req, res) {
     });
 
     blocks.results.map((j)=>{
-      page.subtasks.push(j.to_do.rich_text[0].text.content)
+      if (j.to_do) page.subtasks.push(j.to_do.rich_text[0].text.content)
+      else page.subtasks.push([])
     })
 
 
