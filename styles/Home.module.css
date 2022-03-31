@@ -18,7 +18,11 @@
   border-radius: 8px;
   padding: 30px;
   margin: 100px 50px;
-  width: 65%
+  width: 65%;
+
+  display:flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .tasks_inside_container {
@@ -32,6 +36,7 @@
   margin-top: -50px;
   background-color: var(--light_gray);
   width: 70px;
+  height: 30px;
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -44,12 +49,34 @@
   transition: .3s;
 }
 
+#add_calendar_icon, #add_tasks_icon {
+  transform: rotate(180deg);
+  font-size: 0px;
+  transition: .3s;
+}
+
 .calendar_icon_wrapper:hover #calendar_icon{
   color: var(--yellow);
+  transform: rotate(-180deg);
+  font-size: 0px;
+}
+
+.calendar_icon_wrapper:hover #add_calendar_icon{
+  color:var(--yellow);
+  font-size: 30px;
+  transform: rotate(-180deg);
 }
 
 .tasks_icon_wrapper:hover #tasks_icon{
   color: var(--yellow);
+  transform: rotate(-180deg);
+  font-size: 0px;
+}
+
+.tasks_icon_wrapper:hover #add_tasks_icon{
+  color: var(--yellow);
+  transform: rotate(-180deg);
+  font-size: 30px;
 }
 
 .month_wrapper h1 {
@@ -62,4 +89,10 @@
 .month_wrapper{
   line-height: 5px;
   margin-left: 20px;
+}
+
+.loading_icon {
+  color: var(--yellow);
+  margin-top: -20px;
+  margin-bottom: 30px;
 }

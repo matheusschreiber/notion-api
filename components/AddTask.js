@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 
 import styles from '../styles/components/AddTask.module.css'
 
-export default function AddTask({shown=false, getData, update}){
+import api from '../services/api'
+
+export default function AddTask({shown, update}){
   const [ priority, setPriority ] = useState();
   const [ status, setStatus ] = useState();
   const [ date, setDate ] = useState();
@@ -29,40 +31,79 @@ export default function AddTask({shown=false, getData, update}){
     }
   }
 
+  async function handleSubmit(action){
+    /*
+      0 - Not showing
+      1 - Idle (do nothing)
+      2 - Discard changes
+      3 - Save changes via api
+    */
+    if (action===2) {
+      setPriority("")
+      setStatus("")
+      setDate("")
+      setTitle("")
+      setSubtasks(["Insira uma subtarefa"])
+    } else if (action===3) {
+      const data = {priority, status, date, title, subtasks:subtasks.slice(0,subtasks.length-1), done:false}
+      const response = await api.post('/api/addItem', data)
+      console.log(response.data)
+    }
+
+    update()
+  }
+
   
 
   useEffect(()=>{
-    let data = {priority, status, date, title, subtasks}
-    getData(data)    
-  },[update])
+    handleSubmit(shown)
+  },[shown])
 
   return(
-    <div className={styles.addtask_item_wrapper} style={shown?{}:{display:'none'}}>
-      <label>Insira a data: </label>
-      <input type="date" onChange={(e)=>setDate(e.target.value)}/>
-      <div style={{display:'flex', justifyContent: 'space-between'}}>
-        <select className={styles.priority_selector} onChange={(e)=>setPriority(e.target.value)}>
-          <option hidden>PRIORIDADE</option>
-          <option value={"🔥"}>🔥ALTA</option>
-          <option value={"⛅"}>⛅MÉDIA</option>
-          <option value={"🧊"}>🧊BAIXA</option>
-        </select>
+    <div className={styles.addtask_item_wrapper} style={!shown?{}:{display:'none'}}>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:'10px'}}>
+        <label>Insira a data: </label>
+        <input
+          type="date"
+          onChange={(e)=>setDate(e.target.value)}
+          value={date}/>
+      </div>
 
-        <select className={styles.status_selector} onChange={(e)=>setStatus(e.target.value)}>
+      <div style={{display:'flex', justifyContent:'space-between', marginBottom:'10px'}}>
+        <select
+          className={styles.priority_selector} 
+          onChange={(e)=>setPriority(e.target.value)}
+          value={priority}>
+
+          <option hidden>PRIORIDADE</option>
+          <option value={"high"}>🔥 alta</option>
+          <option value={"medium"}>⛅ mediana</option>
+          <option value={"low"}>🧊 baixa</option>
+        </select>
+        
+        <select
+          className={styles.status_selector}
+          onChange={(e)=>setStatus(e.target.value)}
+          value={status}>
           <option hidden>STATUS</option>
-          <option value={"⌛"}>⌛Não Iniciada</option>
-          <option value={"✍🏻"}>✍🏻Iniciada</option>
-          <option value={"✅"}>✅Terminada</option>
+          <option value={"not started"}>⌛ não iniciada</option>
+          <option value={"started"}>✍🏻 iniciada</option>
+          <option value={"finished"}>✅ terminada</option>
         </select>
       </div>
-      
 
-      
-      <input type="text" id={1} placeholder="INSIRA O TITULO" onChange={(e)=>setTitle(e.target.value)}/>
-      
+      <input 
+        type="text"
+        id={1}
+        placeholder="INSIRA O TITULO"
+        value={title}
+        onChange={(e)=>setTitle(e.target.value)}/>
       {
         subtasks.map((i)=>(
-          <input key={subtasks.indexOf(i)} type="text" id={2} 
+          <input 
+            key={subtasks.indexOf(i)} 
+            type="text"
+            id={2} 
             placeholder="Insira uma subtarefa"
             onFocus={()=>handleNewSubTask(i)}
             value={subtasks[subtasks.indexOf(i)]}
@@ -74,9 +115,6 @@ export default function AddTask({shown=false, getData, update}){
             />
         ))
       }
-
-
     </div>
   )
-
 }

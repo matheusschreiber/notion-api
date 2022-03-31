@@ -1,3 +1,8 @@
+.addtask_item_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .addtask_item_wrapper input{
   background: transparent;
   border:none;
@@ -5,6 +10,8 @@
   color: var(--yellow);
   font-weight: bold;
   font-size: 12pt;
+  padding-left: 5px;
+  border-bottom: 2px solid var(--orange);
 }
 
 .addtask_item_wrapper input[id="2"] {
@@ -34,6 +41,7 @@
   padding: 0;
   cursor: pointer;
   margin-bottom: 20px;
+  border-bottom: 2px solid var(--orange);
 }
 
 .addtask_item_wrapper select option{
