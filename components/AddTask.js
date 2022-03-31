@@ -74,7 +74,7 @@ export default function AddTask({shown, update}){
           value={date}/>
       </div>
 
-      <div style={{display:'flex', justifyContent:'space-between', marginBottom:'10px'}}>
+      <div className={styles.priority_status_select}>
         <select
           className={styles.priority_selector} 
           onChange={(e)=>setPriority(e.target.value)}

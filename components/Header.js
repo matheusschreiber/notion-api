@@ -6,7 +6,9 @@ export default function Header(){
   return(
     <div className={styles.header_wrapper}>
       <h1>NOTION</h1>
-      <h3>API USAGE FOR PERSONAL ORGANIZATION <span><FiGithub /> matheusschreiber</span></h3> 
+      <h3>API USAGE FOR PERSONAL ORGANIZATION 
+        <a href="https://github.com/matheusschreiber/notion-api"><span><FiGithub /> matheusschreiber</span></a>
+      </h3> 
     </div>
   )
 }

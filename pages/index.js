@@ -88,7 +88,7 @@ export default function Home() {
   },[])
 
   return (
-    <div>
+    <div className={styles.parent_container}>
       <Head>
         <title>Notion</title>
         <meta name="description" content="NOTION API Workflow" />
@@ -97,8 +97,8 @@ export default function Home() {
 
       <Header />
 
+      <h4>PASSE O MOUSE SOBRE OS ICONES DOS PAINEIS (CALENDARIO E PRANCHETA) PARA ADICIONAR UM ITEM</h4>
       <main className={styles.main}>
-
         <aside className={styles.calendar_container} style={!addingCalendar?{borderColor:'var(--yellow)'}:{}}>
           <div className={styles.calendar_icon_wrapper}>
             <div onClick={()=>setAddingCalendar(0)}>

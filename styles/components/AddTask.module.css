@@ -3,6 +3,22 @@
   flex-direction: column;
 }
 
+.priority_status_select{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:10px;
+}
+
+@media (max-width:600px){
+  .addtask_item_wrapper{
+    width: 90%;
+    margin: 10px auto;
+  }
+  .priority_status_select{
+    flex-direction: column;
+  }
+}
+
 .addtask_item_wrapper input{
   background: transparent;
   border:none;
@@ -47,5 +63,4 @@
 .addtask_item_wrapper select option{
   height: 30px;
 }
-
 

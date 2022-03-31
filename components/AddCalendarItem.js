@@ -49,10 +49,14 @@ export default function AddCalendarItem({shown, update}){
 
   return (
     <div className={styles.main_container_add_calendar} style={!shown?{}:{display:'none'}}>
-      <input type="date" value={date} onChange={(e)=>setDate(e.target.value)}/>
-      <select value={time} onChange={(e)=>setTime(e.target.value)}>
-        { timeList }
-      </select>
+      <div className={styles.date_time_inputs}>
+        <input type="date" value={date} onChange={(e)=>setDate(e.target.value)}/>
+        <select value={time} onChange={(e)=>setTime(e.target.value)}>
+          { timeList }
+        </select>
+      </div>
+
+
       <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)} placeholder="Insira o evento"/>
     </div>
   )

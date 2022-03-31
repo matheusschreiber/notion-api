@@ -1,9 +1,25 @@
 .main_container_add_calendar {
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.main_container_add_calendar input, .main_container_add_calendar select {
+.date_time_inputs{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+@media (max-width:600px){
+  .date_time_inputs{
+    flex-direction: column;
+  }
+}
+
+.main_container_add_calendar .date_time_inputs input,
+  .main_container_add_calendar input,
+  .main_container_add_calendar select {
   background-color: transparent;
   border: none;
   border-bottom: 2px solid var(--yellow);
@@ -14,10 +30,11 @@
 .main_container_add_calendar select option{
   background-color: var(--yellow);
   color: var(--light_gray);
+  width: 50%;
 }
 
 .main_container_add_calendar input[type="date"]{
-  width: 120px;
+  width: 50%;
   font-size: 8pt;
   margin: 10px 5px;
 }
@@ -25,5 +42,6 @@
 .main_container_add_calendar input[type="text"]{
   font-size: 8pt;
   margin: 10px 5px;
+  width: 100%;
 }
 
