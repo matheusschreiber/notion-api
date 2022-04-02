@@ -13,6 +13,17 @@
   .main input{
     transform: scale(.7);
   }
+
+  .main input:hover {
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 501px){
+  .main input:hover {
+    border: 3px solid var(--yellow);
+    transform: scale(1.2);
+  }
 }
 
 .main input{
@@ -34,10 +45,7 @@
   transition: .2s;
 }
 
-.main input:hover {
-  border: 3px solid var(--yellow);
-  transform: scale(1.2);
-}
+
 
 
 
