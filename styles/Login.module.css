@@ -9,6 +9,12 @@
   align-items: center;
 }
 
+@media (max-width: 500px){
+  .main input{
+    transform: scale(.7);
+  }
+}
+
 .main input{
   height: 100px;
   font-size: 20pt;
