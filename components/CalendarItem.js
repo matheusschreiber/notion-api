@@ -14,7 +14,7 @@ export default function CalendarItem({id, date, text, update}){
   }
 
   useEffect(()=>{
-    console.log(text)
+    // console.log(text)
   },[])
 
   return (

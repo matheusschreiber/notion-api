@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     let page = {
       id: i.id,
       title: i.properties.Name.title[0].text.content,
-      date: i.properties.date.date?i.properties.date.date.start:"-----",
+      date: i.properties.date.date?i.properties.date.date.start:"XXXX-mm-dd",
       done: i.properties.done.checkbox,
       priority: i.properties.priority.select.name,
       status: i.properties.status.select.name,

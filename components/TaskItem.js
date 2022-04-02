@@ -47,20 +47,24 @@ export default function TaskItem({id, date, title, subtasks, priority, status, d
     setChanged(false)
   }
  
-  useEffect(()=>{   
+  useEffect(()=>{  
     
     if (isDone) {
       setBgColorPriority('var(--dark_gray)');
       setBgColorStatus('var(--dark_gray)');
     } else {
+      console.log(priorityState)
       switch(priorityState){
         case "🔥":
+          console.log(1)
           setBgColorPriority('var(--red)');
           break;
         case "⛅":
+          console.log(2)
           setBgColorPriority('var(--light_yellow)');
           break;
         case "🧊":
+          console.log(3)
           setBgColorPriority('var(--blue)');
           break;
       }
