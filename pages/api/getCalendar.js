@@ -4,7 +4,8 @@ const { Client } = require('@notionhq/client');
 export default async function handler(req, res) {
   const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_INTEGRATION_TOKEN })
   let currentDate = new Date();                     
-  currentDate.setDate(currentDate.getDate() - 1);             
+  currentDate.setDate(currentDate.getDate() - 2); 
+  console.log(currentDate)            
   const desiredDate = currentDate.toISOString().slice(0, 10); 
 
   const pages = await notion.databases.query({
